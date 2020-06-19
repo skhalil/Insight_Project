@@ -1,0 +1,12 @@
+# To install these Python dependencies, please type:
+# pip install -r requirements.txt
+
+python                    3.6.8                haf84260_0  
+streamlit                 0.60.0                   pypi_0    pypi
+faker                     4.1.0                    pypi_0    pypi
+numpy                     1.16.4           py36hacdab7b_0  
+numpy-base                1.16.4           py36h6575580_0  
+numpydoc                  0.9.1                      py_0  
+pandas                    0.23.4           py36h6440ff4_0  
+regex                     2020.5.14                pypi_0    pypi
+matplotlib                3.1.1            py36h54f8f79_0  
