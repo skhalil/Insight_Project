@@ -1,30 +1,27 @@
 # Insight_Project
-Framework for machine learning projects at Insight Data Science.
+'PROFESSIONAL NETWORK ANALYSIS TO FIND BEST PATHWAYS INTRODUCTION'
 
-## Motivation for this project format:
-- **Insight_Project_Framework** : Put all source code for production within structured directory
-- **tests** : Put all source code for testing in an easy to find location
-- **configs** : Enable modification of all preset variables within single directory (consisting of one or many config files for separate tasks)
-- **data** : Include example a small amount of data in the Github repository so tests can be run to validate installation
-- **build** : Include scripts that automate building of a standalone environment
-- **static** : Any images or content to include in the README or web framework if part of the pipeline
+## Description:
+- **demo** : Include the code to launch the dashboard in streamlit, and input data files
+- **test** : This include the scripts 'create_network_structure.py' and a helper utility, 'functions.py'. The scripts reads the raw inital data files by the client, and format it into files suitable for networkX analysis. The raw input files are not added to repository because of privacy, but the scripts can expain the steps used to create the structured data. This folder also include a script 'hide_identities.py', to anonymized the identities. The resultant files are then written to 'demo' directory 
+- **analysis** : This has the jupyter notebook with EDA plots and methodolgy used for predictions and inference 
+- **static** : This includes images or content to include in the README or web framework if part of the pipeline
 
 ## Setup
 Clone repository and update python path
 ```
-repo_name=Insight_Project_Cards # URL of your new repository
+repo_name=Insight_Project 
 username=skhalil # Username for your personal github account
-git clone https://github.com/$username/$repo_name
+git clone https://github.com/skhalil/$repo_name
 cd $repo_name
 echo "export $repo_name=${PWD}" >> ~/.bash_profile
 echo "export PYTHONPATH=$repo_name/src:${PYTHONPATH}" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 Optional:
-Create new development branch and switch onto it
+Create new development branch for test development
 ```
-branch_name=dev-readme_requisites-20180905 # Name of development branch, of the form 'dev-feature_name-date_of_creation'}}
-git checkout -b $branch_name
+git checkout -b dev-20200605 #Its good idea to add time stamp
 ```
 
 ## Initial Commit
