@@ -16,7 +16,6 @@ import matplotlib.pyplot as plt
 
 @st.cache
 def get_data(file_node, file_edge):
-    #print('file ---->', file_node)
     #with open('fake_nodes.csv', 'r', encoding="ISO-8859-1") as nodecsv:
     if os.path.isfile(file_node):
         with open(file_node, 'r', encoding="ISO-8859-1") as nodecsv:
@@ -93,7 +92,6 @@ def show_subnet(G, t_in, s_in):
     nx.draw_networkx(
         H, pos=pos, node_size=20, alpha=1.0, size = 900)
     p=nx.shortest_path(G,source=s_in, target=t_in, weight='weight' )
-    #print(p)
     path_edges = zip(p,p[1:])
     path_edges = set(path_edges)
     nx.draw_networkx_nodes(H,pos,nodelist=p,node_color='r')
@@ -102,6 +100,4 @@ def show_subnet(G, t_in, s_in):
     plt.rcParams['figure.figsize'] = (15, 15)
     plt.title('Undirected SubGraphs', fontsize = 20)
     plt.axis('off')
-    #plt.show()
-    #fig.savefig(t_in.split('')[0]+"testPlot.png")
     return fig    
