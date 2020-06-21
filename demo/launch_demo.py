@@ -148,9 +148,9 @@ st.write('Best pathway introductions')
 #st.write(target_conn_dict[t_0])
 
 
-#name_intro   = np.array([]); 
-#name_intro   = np.append(name_intro, target_conn_dict[t_0])
-#df_into = pd.DataFrame({'Name':name_intro})
+name_intro   = np.array([]); 
+name_intro   = np.append(name_intro, target_conn_dict[t_0])
+df_into = pd.DataFrame({'Name':name_intro})
 
 #print(df_into)
 
