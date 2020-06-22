@@ -19,16 +19,12 @@ source ~/.bash_profile
 Optional:
 Create new development branch for test development
 ```
-git checkout -b dev-20200605 #Its good idea to add time stamp
+git checkout -b <branch_name>
 ```
 
-### Add Remote
+### Add Remote and verify it
 ```
 git remote add origin https://github.com/skhalil/Insight_Project
-```
-
-### Verify the remote
-```
 git remote -v  
 > origin	https://github.com/skhalil/Insight_Project (fetch)
 > origin	https://github.com/skhalil/Insight_Project (push)
@@ -47,10 +43,12 @@ git push origin <branch_name>
 git branch
 > master
 > * test_Jun18
+
 git checkout master
 git branch
 > * master
 > test_Jun18
+
 git merge test_Jun18
 ```
 
@@ -66,18 +64,14 @@ streamlit run launch_demo.py
 ```
 
 ## Instructions for Dashbaord User
-- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error. (To be fixed)
+- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error. 
 
 
-## Delployment with AWS
-A good set of instructions can be found here https://towardsdatascience.com/how-to-deploy-a-streamlit-app-using-an-amazon-free-ec2-instance-416a41f69dc3
-
-### Requisites before lauching to Server
+## Pre-requisites before lauching to Server
 - List all packages and software needed to build the environment
-- This could include cloud command line tools (i.e. gsutil), package managers (i.e. conda), etc.
 
 ### Dependencies
-- I suggest to use pipreqs to fetch the dependencies for you.
+- Use `pipreqs` to fetch the dependencies rather than adding manually.
 ```
 pip install pipreqs
 pipreqs requirements.txt
@@ -92,7 +86,7 @@ networkx==2.4
 streamlit==0.60.0
 ```
 ### Build Environment
-- Build scripts can include shell scripts or python setup.py files
+- Build scripts can include shell scripts or python `setup.py` files
 ```
 mkdir -p ~/.streamlit/
 
@@ -108,14 +102,18 @@ enableCORS=false\n\
 port = $PORT\n\
 " > ~/.streamlit/config.toml
 ```
-- In case if you like to deploy with Heroku, here is another requirement. Create a file called Procfile
+- In case if you like to deploy with Heroku, here is another requirement. Create a file called Procfile and commit all to yout github repo
 ```
 web: sh setup.sh && streamlit run launch_demo.py
 ```
 
 
+## Delployment with AWS
+A good set of instructions can be found[here](https://towardsdatascience.com/how-to-deploy-a-streamlit-app-using-an-amazon-free-ec2-instance-416a41f69dc3)
+
+
 ### Setup the basic environment
-- Once you login to your remote instance, prepare the environment by installing miniconda and any dependencies
+- Once you login to your remote AWS instance, prepare the environment by installing miniconda and any dependencies
 ```
 sudo apt-get update
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.shbash 
@@ -123,7 +121,7 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/
 echo "PATH=$PATH:$HOME/miniconda/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
-### Get your github repo, and install any other dependencies
+### Clone your github repo, and install any other dependencies
 
 ```
 git clone https://github.com/skhalil/Insight_Project
@@ -208,13 +206,13 @@ proxy_pass http://localhost:8501;
 ```
 
 ### Run with your domain
-- We like to map the external url to a domain such as www.xyz.me
+- We like to map the external url to a domain such as `www.DataScienceClub.me`
 
 
-#### Map with your domain
-- Read the instructions from the url from bullet 3, as we have our own host records from AWS.
-![namecheap Logo](/images/NameCheap_AdvancedDNS.png)
-Format: ![Alt Text](https://www.namecheap.com/support/knowledgebase/article.aspx/9837/46/how-to-connect-a-domain-to-a-server-or-hosting)
+#### Map the ip address with your domain
+- Read the instructions.
+![DataScienceClub.me](/images/NameCheap_AdvancedDNS.png)
+Instructions: ![namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/319/2237/how-can-i-set-up-an-a-address-record-for-my-domain)
 
 
 
