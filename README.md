@@ -16,6 +16,10 @@ echo "export Insight_Project=${PWD}" >> ~/.bash_profile
 echo "export PYTHONPATH=Insight_Project/src:${PYTHONPATH}" >> ~/.bash_profile
 source ~/.bash_profile
 ```
+## Development
+<details><summary>CLICK ME</summary>
+<p>
+
 Optional:
 Create new development branch for test development
 ```
@@ -51,6 +55,8 @@ git branch
 
 git merge test_Jun18
 ```
+</p>
+</details>
 
 ## Run the App Locally
 From the git root directory, run the following
