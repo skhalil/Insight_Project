@@ -22,7 +22,7 @@ Create new development branch for test development
 git checkout -b <branch_name>
 ```
 
-### Add Remote and verify it
+### Add Remote and Verify it!
 ```
 git remote add origin https://github.com/skhalil/Insight_Project
 git remote -v  
@@ -30,7 +30,7 @@ git remote -v
 > origin	https://github.com/skhalil/Insight_Project (push)
 ```
 
-### To Commit
+### Commit
 ```
 cd Insight_Project
 git status
@@ -52,7 +52,7 @@ git branch
 git merge test_Jun18
 ```
 
-## Run the app locally
+## Run the App Locally
 From the git root directory, run the following
 ```
 streamlit run launch_demo.py
@@ -111,6 +111,10 @@ web: sh setup.sh && streamlit run launch_demo.py
 
 
 ## Delployment with AWS
+
+<details><summary>CLICK ME</summary>
+<p>
+
 A good set of instructions can be found[here](https://towardsdatascience.com/how-to-deploy-a-streamlit-app-using-an-amazon-free-ec2-instance-416a41f69dc3)
 
 
@@ -257,12 +261,22 @@ port = 8501
 ```
 - Check again the nginx settings, which happened to be the cause in my case
 
+</p>
+</details>
 
 ## Delployment with Heroku
+
+<details><summary>CLICK ME</summary>
+<p>
+
 - Start with the following blogs:
+
 -1- https://gilberttanner.com/blog/deploying-your-streamlit-dashboard-with-heroku
+
 -2- https://towardsdatascience.com/from-streamlit-to-heroku-62a655b7319
+
 -3- https://medium.com/@gitaumoses4/deploying-a-flask-application-on-heroku-e509e5c76524
+
 -4- https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3
 
 
@@ -345,9 +359,8 @@ networkrebel.me ALIAS or ANAME  corrugated-aardwolf-me1kf9j8yhfnkprywj785qv4.her
 
 -5- https://towardsdatascience.com/how-to-deploy-your-website-to-a-custom-domain-8cb23063c1ff
 
-
-
-
+</p>
+</details>
 
 
 
