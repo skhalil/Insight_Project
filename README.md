@@ -68,6 +68,9 @@ streamlit run launch_demo.py
 
 
 ## Pre-requisites before lauching to Server
+
+<details><summary>CLICK ME</summary>
+<p>
 - List all packages and software needed to build the environment
 
 ### Dependencies
@@ -108,6 +111,8 @@ port = $PORT\n\
 ```
 web: sh setup.sh && streamlit run launch_demo.py
 ```
+</p>
+</details>
 
 
 ## Delployment with AWS
