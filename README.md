@@ -16,13 +16,33 @@ echo "export Insight_Project=${PWD}" >> ~/.bash_profile
 echo "export PYTHONPATH=Insight_Project/src:${PYTHONPATH}" >> ~/.bash_profile
 source ~/.bash_profile
 ```
+
+## Run the App Locally
+From the git root directory, run the following
+```
+streamlit run launch_demo.py
+
+> You can now view your Streamlit app in your browser.
+> Local URL: http://localhost:8501
+> Network URL: http://192.168.1.172:8501
+>
+```
+
+## Instructions for Dashbaord User
+- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error (Need to fix). 
+
+
+## Development
+<details><summary>CLICK ME</summary>
+<p>
+
 Optional:
 Create new development branch for test development
 ```
 git checkout -b <branch_name>
 ```
 
-### Add Remote and verify it
+### Add Remote and Verify it!
 ```
 git remote add origin https://github.com/skhalil/Insight_Project
 git remote -v  
@@ -30,7 +50,7 @@ git remote -v
 > origin	https://github.com/skhalil/Insight_Project (push)
 ```
 
-### To Commit
+### Commit
 ```
 cd Insight_Project
 git status
@@ -51,23 +71,13 @@ git branch
 
 git merge test_Jun18
 ```
-
-## Run the app locally
-From the git root directory, run the following
-```
-streamlit run launch_demo.py
-
-> You can now view your Streamlit app in your browser.
-> Local URL: http://localhost:8501
-> Network URL: http://192.168.1.172:8501
->
-```
-
-## Instructions for Dashbaord User
-- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error. 
-
+</p>
+</details>
 
 ## Pre-requisites before lauching to Server
+
+<details><summary>CLICK ME</summary>
+<p>
 - List all packages and software needed to build the environment
 
 ### Dependencies
@@ -108,9 +118,15 @@ port = $PORT\n\
 ```
 web: sh setup.sh && streamlit run launch_demo.py
 ```
+</p>
+</details>
 
 
-## Delployment with AWS
+## Deployment with AWS
+
+<details><summary>CLICK ME</summary>
+<p>
+
 A good set of instructions can be found[here](https://towardsdatascience.com/how-to-deploy-a-streamlit-app-using-an-amazon-free-ec2-instance-416a41f69dc3)
 
 
@@ -257,12 +273,22 @@ port = 8501
 ```
 - Check again the nginx settings, which happened to be the cause in my case
 
+</p>
+</details>
 
-## Delployment with Heroku
+## Deployment with Heroku
+
+<details><summary>CLICK ME</summary>
+<p>
+
 - Start with the following blogs:
+
 -1- https://gilberttanner.com/blog/deploying-your-streamlit-dashboard-with-heroku
+
 -2- https://towardsdatascience.com/from-streamlit-to-heroku-62a655b7319
+
 -3- https://medium.com/@gitaumoses4/deploying-a-flask-application-on-heroku-e509e5c76524
+
 -4- https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3
 
 
@@ -345,9 +371,8 @@ networkrebel.me ALIAS or ANAME  corrugated-aardwolf-me1kf9j8yhfnkprywj785qv4.her
 
 -5- https://towardsdatascience.com/how-to-deploy-your-website-to-a-custom-domain-8cb23063c1ff
 
-
-
-
+</p>
+</details>
 
 
 
