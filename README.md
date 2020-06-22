@@ -16,6 +16,22 @@ echo "export Insight_Project=${PWD}" >> ~/.bash_profile
 echo "export PYTHONPATH=Insight_Project/src:${PYTHONPATH}" >> ~/.bash_profile
 source ~/.bash_profile
 ```
+
+## Run the App Locally
+From the git root directory, run the following
+```
+streamlit run launch_demo.py
+
+> You can now view your Streamlit app in your browser.
+> Local URL: http://localhost:8501
+> Network URL: http://192.168.1.172:8501
+>
+```
+
+## Instructions for Dashbaord User
+- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error (Need to fix). 
+
+
 ## Development
 <details><summary>CLICK ME</summary>
 <p>
@@ -57,21 +73,6 @@ git merge test_Jun18
 ```
 </p>
 </details>
-
-## Run the App Locally
-From the git root directory, run the following
-```
-streamlit run launch_demo.py
-
-> You can now view your Streamlit app in your browser.
-> Local URL: http://localhost:8501
-> Network URL: http://192.168.1.172:8501
->
-```
-
-## Instructions for Dashbaord User
-- Please choose the file `anonymous_nodes.csv` for the node file select tab, and `anonymous_edges.csv` for the edges file seelct tab. Otherwise, it will give an error. 
-
 
 ## Pre-requisites before lauching to Server
 
