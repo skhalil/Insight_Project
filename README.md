@@ -122,7 +122,7 @@ web: sh setup.sh && streamlit run launch_demo.py
 </details>
 
 
-## Delployment with AWS
+## Deployment with AWS
 
 <details><summary>CLICK ME</summary>
 <p>
@@ -276,7 +276,7 @@ port = 8501
 </p>
 </details>
 
-## Delployment with Heroku
+## Deployment with Heroku
 
 <details><summary>CLICK ME</summary>
 <p>
