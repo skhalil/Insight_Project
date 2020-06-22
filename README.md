@@ -71,10 +71,12 @@ streamlit run launch_demo.py
 - List all packages and software needed to build the environment
 
 ### Dependencies
-- Use `pipreqs` to fetch the dependencies rather than adding manually.
+- Use `pipreqs` to fetch the dependencies `requirements.txt`, rather than adding manually.
 ```
 pip install pipreqs
-pipreqs requirements.txt
+cd ../
+> /Users/skhalil/Desktop/Analysis/DataCleaningRebel
+pipreqs Insight_Project
 ```
 The file looks like as
 ```
@@ -199,7 +201,12 @@ proxy_set_header X-Real-IP         $remote_addr;
 proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
 proxy_set_header Host              $http_host;
-proxy_pass http://localhost:8501;
+#proxy_pass http://localhost:8501;
+proxy_pass http://127.0.0.1:8501/;
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+proxy_read_timeout 86400;
 }
 }
 
@@ -248,6 +255,96 @@ headless = true
 enableCORS=false
 port = 8501
 ```
+- Check again the nginx settings, which happened to be the cause in my case
+
+
+## Delployment with Heroku
+- Start with the following blogs:
+-1- https://gilberttanner.com/blog/deploying-your-streamlit-dashboard-with-heroku
+-2- https://towardsdatascience.com/from-streamlit-to-heroku-62a655b7319
+-3- https://medium.com/@gitaumoses4/deploying-a-flask-application-on-heroku-e509e5c76524
+-4- https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3
+
+
+### Virtual Env
+In your conda enviroment or base, first make sure python3 is up to date, and then lauch the virtual environment
+```
+python3 -m pip install --upgrade pip
+pip3 install virtualenv
+which virtualenv
+which python3
+virtualenv -p /Users/skhalil/miniconda2/envs/python37/bin/python3 venv
+source venv/bin/activate
+```
+### Check if app is working
+```
+streamlit run launch_demo.py
+```
+
+- I have to edit the requirements.txt file as otherwise the app was complaining about `scipy` library. So my `requirements.txt` file looks like
+```
+pandas==0.23.4
+numpy==1.16.4
+scipy==1.5.0
+streamlit==0.60.0
+matplotlib==3.1.1
+networkx==2.4
+Faker==4.1.0
+```
+
+### Login to Heroku and create a new repo in Heroku
+```
+heroku login
+heroku create
+> Creating app... done, ⬢ ancient-cove-13711
+> https://ancient-cove-13711.herokuapp.com/ | https://git.heroku.com/ancient-cove-13711.git
+```
+### Add the remote and push everything
+```
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ heroku git:remote -a ancient-cove-13711
+set git remote heroku to https://git.heroku.com/ancient-cove-13711.git
+
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ git remote -v
+heroku    https://git.heroku.com/ancient-cove-13711.git (fetch)
+heroku    https://git.heroku.com/ancient-cove-13711.git (push)
+origin    https://github.com/skhalil/Insight_Project (fetch)
+origin    https://github.com/skhalil/Insight_Project (push)
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ git add .
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ git commit -m "some message"
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ git push heroku master
+> Counting objects: 79, done.
+> Delta compression using up to 8 threads.
+> Compressing objects: 100% (75/75), done.
+> Writing objects: 100% (79/79), 1.12 MiB | 1.07 MiB/s, done.
+> Total 79 (delta 28), reused 0 (delta 0)
+> remote: Compressing source files... done.
+> remote: Building source:
+
+```
+### Add the domain
+- You need to add your credit card information to activate the Heroku account before adding the domain
+```
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ heroku domains:add networkrebel.me 
+Configure your app's DNS provider to point to the DNS Target corrugated-aardwolf-me1kf9j8yhfnkprywj785qv4.herokudns.com.
+For help, see https://devcenter.heroku.com/articles/custom-domains
+
+The domain networkrebel.me has been enqueued for addition
+Run heroku domains:wait 'networkrebel.me' to wait for completion
+Adding networkrebel.me to ⬢ ancient-cove-13711... done
+
+(venv) (python37) PHSX-CMS:Insight_Project skhalil$ heroku domains --app ancient-cove-13711
+=== ancient-cove-13711 Heroku Domain
+ancient-cove-13711.herokuapp.com
+
+=== ancient-cove-13711 Custom Domains
+Domain Name     DNS Record Type DNS Target                                                 
+networkrebel.me ALIAS or ANAME  corrugated-aardwolf-me1kf9j8yhfnkprywj785qv4.herokudns.com 
+```
+
+- Now comes the tough part to map the DNS to target domain on namecheap Advanced DNS settings. After that one should be good to go with the it. Note, this method is very different than from adding the target record for AWS.
+
+-5- https://towardsdatascience.com/how-to-deploy-your-website-to-a-custom-domain-8cb23063c1ff
+
 
 
 
