@@ -15,28 +15,6 @@ import os
 import matplotlib.pyplot as plt
 
 @st.cache
-def get_data(file_node, file_edge):
-    #with open('fake_nodes.csv', 'r', encoding="ISO-8859-1") as nodecsv:
-    if os.path.isfile(file_node):
-        with open(file_node, 'r', encoding="ISO-8859-1") as nodecsv:
-            nodereader = csv.reader(nodecsv)
-            nodes = [n for n in nodereader][1:]
-        node_names = [n[0] for n in nodes]    
-        my_G = nx.Graph()
-        my_G.add_nodes_from(node_names)
-    
-    if os.path.isfile(file_edge):
-        #with open('fake_edges.csv', 'r', encoding="ISO-8859-1") as edgecsv: 
-        with open(file_edge, 'r', encoding="ISO-8859-1") as edgecsv:
-            edgereader = csv.reader(edgecsv) 
-            next(edgereader)
-            for e in edgereader:
-                my_G.add_edge(e[0], e[1], weight = float(e[2]))
-            
-        my_G.remove_nodes_from(list(nx.isolates(my_G)))            
-        return my_G
-
-@st.cache
 def get_top10_sorted_by_algo(sorted_dict, c_pagerank_dict, 
                              c_degree_dict, c_eigenvector_dict, 
                              c_betweenness_dict, c_closeness_dict, 

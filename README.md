@@ -128,7 +128,12 @@ web: sh setup.sh && streamlit run launch_demo.py
 <p>
 
 A good set of instructions can be found[here](https://towardsdatascience.com/how-to-deploy-a-streamlit-app-using-an-amazon-free-ec2-instance-416a41f69dc3)
-
+### Login
+```
+ssh -i "streamlit.pem" ubuntu@ec2-34-208-240-95.us-west-2.compute.amazonaws.com
+> (base) PHSX-CMS:AWS skhalil$ pwd
+> /Users/skhalil/Desktop/Analysis/DataScience_Doc/AWS
+```
 
 ### Setup the basic environment
 - Once you login to your remote AWS instance, prepare the environment by installing miniconda and any dependencies

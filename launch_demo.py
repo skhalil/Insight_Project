@@ -9,26 +9,109 @@ Created on Tue Jun 16 20:14:46 2020
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+from operator import itemgetter
+import networkx as nx
 import csv
 import os
 import time
-from operator import itemgetter
-import networkx as nx
-import glob
+import matplotlib.pyplot as plt
 from cache_functions import *
 
-def main():
-    
-    st.title('Welcome to Your Professional Network')
-    page = st.sidebar.selectbox('Choose a page', ['Targets', 'Network', 'Connections']) 
+from enum import Enum
+from io import BytesIO, StringIO
+from typing import Union
 
-    filenames = glob.glob('*.csv')
-    #print(filenames)
-    file_node = st.selectbox('Please select the node file', filenames)
-    file_edge = st.selectbox('Please select the edge file', filenames)   
-    G_Big = get_data(file_node,file_edge)
-    G = G_Big.copy()
+STYLE = """
+<style>
+img {
+    max-width: 100%;
+}
+</style>
+"""
+FILE_TYPES = ["csv", "py", "png", "jpg"]
+
+@st.cache
+class FileType(Enum):
+    """Used to distinguish between file types"""
+
+    IMAGE = "Image"
+    CSV = "csv"
+    PYTHON = "Python"
+
+
+def get_file_type(file: Union[BytesIO, StringIO]) -> FileType:
+    """The file uploader widget does not provide information on the type of file uploaded so we have
+    to guess using rules, in order to make sure user doesn't upload wrong file extensions 
+
+    Arguments:
+        file {Union[BytesIO, StringIO]} -- The file uploaded
+
+    Returns:
+        FileType -- A best guess of the file type
+    """
+
+    if isinstance(file, BytesIO):
+        return FileType.IMAGE
+    
+    content = file.getvalue()
+    if (
+        content.startswith('"""')
+        or "import" in content
+        or "from " in content
+        or "def " in content
+        or "class " in content
+        or "print(" in content
+    ):
+        return FileType.PYTHON
+
+    return FileType.CSV
+
+def main():
+    """Run this function to display the Streamlit app"""
+    #st.info(__doc__)
+    #st.markdown(STYLE, unsafe_allow_html=True)
+
+    st.title('Welcome to Your Professional Network')
+    page = st.sidebar.selectbox('Choose a page', ['Targets', 'View_Network', 'Best_Connections'])
+    
+    file_upload_options = st.selectbox('Select the input files', ['Default', 'Custom'])
+    
+    if file_upload_options == 'Default':
+        file_node = 'anonymous_nodes.csv'
+        nodecsv= open(file_node, 'r', encoding="ISO-8859-1")
+        nodereader = csv.reader(nodecsv)
+        
+        file_edge = 'anonymous_edges.csv'
+        edgecsv = open(file_edge, 'r', encoding="ISO-8859-1")
+        edgereader = csv.reader(edgecsv)
+        
+    else:  #file_upload_options == 'Custom':  
+        file_node = st.file_uploader("Please upload node file", type=FILE_TYPES[0])
+        file_edge = st.file_uploader("Please upload edge file", type=FILE_TYPES[0])
+        show_file = st.empty()
+        if not file_node or not file_edge:
+            show_file.info("Please upload a files of type: " + "".join(FILE_TYPES[0]))
+            return
+        
+        file1_type = get_file_type(file_node)
+        file2_type = get_file_type(file_edge)
+        
+        if file1_type == FileType.CSV and file2_type == FileType.CSV:
+             nodereader = csv.reader(file_node)
+             edgereader = csv.reader(file_edge)
+        else: 
+            st.print('Please upload the right file extensions')
+            return
+ 
+    nodes = [n for n in nodereader][1:]
+    node_names = [n[0] for n in nodes]
+   
+    G = nx.Graph()
+    G.add_nodes_from(node_names)
+    next(edgereader)
+    for e in edgereader:
+        G.add_edge(e[0], e[1], weight = float(e[2]))
+    G.remove_nodes_from(list(nx.isolates(G)))
 
 
     c_pagerank_dict = nx.pagerank(G, alpha=0.9)# current node’s importance from its links and their neighbors
@@ -50,9 +133,10 @@ def main():
     c_betweenness_dict = nx.betweenness_centrality(G) # shortest paths that pass through a particular node
     nx.set_node_attributes(G, c_betweenness_dict, 'betweenness')
     sorted_betweenness = sorted(c_betweenness_dict.items(), key=itemgetter(1), reverse=True)
-
     
-    if page  == 'Network': 
+    
+    
+    if page  == 'View_Network': 
         fig = plt.figure()
         plt.rcParams['figure.figsize'] = (4, 4)
         plt.style.use('fivethirtyeight')
@@ -65,7 +149,7 @@ def main():
         plt.axis('off')
         st.pyplot(fig)
         
-    elif page == 'Connections':
+    elif page == 'Best_Connections':
         df_connector = get_top10_sorted_by_algo(sorted_betweenness, 
                                                 c_pagerank_dict, 
                                                 c_degree_dict, 
@@ -115,19 +199,15 @@ def main():
         name_intro   = np.array([]); 
         name_intro   = np.append(name_intro, target_conn_dict[t_0])
         df_into = pd.DataFrame({'Name':name_intro})
-        st.write(df_into.iloc[:].style.background_gradient(cmap='Oranges').format({}))
-    
-        #nodes_df = pd.read_csv('anonymous_nodes.csv')
-        #nodes.['FakeName'] 
+        
+        st.write(df_into.iloc[:].style.background_gradient(cmap='Browns').format({}))
+        
+        #data = pd.read_csv(file)
+        #st.dataframe(data.head(10))
 
-        #for n in name_intro:
-        #    node_row = nodes_df[nodes_df['FakeName']==n]
-        #    print(node_row)
-    
-        #f = Image.open(t_0+"_subnet.png").show()
-        #st.image(t_0+"_subnet.png")
-        #fig1  =  show_subnet(G, t_0, s)
-        #st.pyplot(fig1)
+    if file_upload_options != 'Default':    
+        file_node.close()
+        file_edge.close()
 
 if __name__ == '__main__':
     main()
